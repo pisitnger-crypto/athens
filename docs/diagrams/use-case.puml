@@ -1,0 +1,27 @@
+@startuml
+left to right direction
+actor Admin
+actor Cashier
+
+rectangle "Shop Management System" {
+  usecase "เพิ่ม/แก้ไข/ลบสินค้า" as UC1
+  usecase "ค้นหา/กรองสินค้า" as UC2
+  usecase "รับสินค้าเข้าคลัง" as UC3
+  usecase "บันทึกการขายสินค้า" as UC4
+  usecase "แจ้งเตือนสินค้าใกล้หมด" as UC5
+  usecase "สร้างรายการขายและออกใบเสร็จ" as UC6
+  usecase "ดูรายงานสต็อกและยอดขาย" as UC7
+}
+
+Admin --> UC1
+Admin --> UC2
+Admin --> UC3
+Admin --> UC5
+Admin --> UC7
+Cashier --> UC2
+Cashier --> UC4
+Cashier --> UC6
+
+UC6 .> UC4 : <<include>>
+UC7 .> UC5 : <<extend>>
+@enduml

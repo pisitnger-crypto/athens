@@ -1,0 +1,23 @@
+@startuml
+actor Cashier
+participant UI
+participant PosService
+participant InventoryService
+participant ProductRepository
+database SQLite
+
+Cashier -> UI: เลือกสินค้าและกด Checkout
+UI -> PosService: Checkout(cartItems, taxRate)
+loop Each cart item
+  PosService -> InventoryService: ConsumeStock(productId, qty)
+  InventoryService -> ProductRepository: GetById(productId)
+  ProductRepository -> SQLite: SELECT Product
+  InventoryService -> ProductRepository: Update(newQty)
+  ProductRepository -> SQLite: UPDATE Products
+  InventoryService -> SQLite: INSERT InventoryTransactions
+end
+PosService -> SQLite: INSERT Sales
+PosService -> SQLite: INSERT SaleItems
+PosService --> UI: ReceiptNumber
+UI --> Cashier: แสดงผลขายสำเร็จ
+@enduml
