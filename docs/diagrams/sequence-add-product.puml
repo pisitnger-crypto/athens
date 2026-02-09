@@ -1,0 +1,19 @@
+@startuml
+actor Admin
+participant UI
+participant ProductService
+participant ProductRepository
+database SQLite
+
+Admin -> UI: กรอกข้อมูลสินค้าใหม่
+UI -> ProductService: CreateProduct(code,name,price,qty,...)
+ProductService -> ProductRepository: GetByCode(code)
+ProductRepository -> SQLite: SELECT Product by code
+SQLite --> ProductRepository: not found
+ProductService -> ProductRepository: Add(product)
+ProductRepository -> SQLite: INSERT INTO Products
+SQLite --> ProductRepository: new ProductId
+ProductRepository --> ProductService: ProductId
+ProductService --> UI: Success
+UI --> Admin: แจ้งเพิ่มสินค้าสำเร็จ
+@enduml
