@@ -21,7 +21,7 @@ namespace athens
 
             _productService = new ProductService(productRepository);
             _inventoryService = new InventoryService(productRepository, db);
-            _posService = new PosService(productRepository, _inventoryService, db);
+            _posService = new PosService(_inventoryService, db);
             _reportingService = new ReportingService(db);
 
             LoadProducts();

@@ -45,7 +45,7 @@ namespace athens
     {
         public Product Product { get; set; }
         public int Quantity { get; set; }
-        public decimal LineTotal => Product.Price * Quantity;
+        public decimal LineTotal => (Product?.Price ?? 0m) * Quantity;
     }
 
     public class SaleReceipt

@@ -72,12 +72,10 @@ namespace athens
 
     public class InventoryService
     {
-        private readonly IProductRepository _productRepository;
         private readonly DatabaseContext _databaseContext;
 
         public InventoryService(IProductRepository productRepository, DatabaseContext databaseContext)
         {
-            _productRepository = productRepository;
             _databaseContext = databaseContext;
         }
 
@@ -148,13 +146,11 @@ VALUES (@productId, @type, @quantity, @note, @createdAt)";
 
     public class PosService
     {
-        private readonly IProductRepository _productRepository;
         private readonly InventoryService _inventoryService;
         private readonly DatabaseContext _databaseContext;
 
-        public PosService(IProductRepository productRepository, InventoryService inventoryService, DatabaseContext databaseContext)
+        public PosService(InventoryService inventoryService, DatabaseContext databaseContext)
         {
-            _productRepository = productRepository;
             _inventoryService = inventoryService;
             _databaseContext = databaseContext;
         }
